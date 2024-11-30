@@ -6,27 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PharmacyAPI.Models;
 
-[Table("product_sale")]
 public partial class ProductSale
 {
-    [Key]
-    [Column("id")]
     public long Id { get; set; }
-
-    [Column("sale_id")]
-    public long SaleId { get; set; }
-
-    [Column("product_id")]
-    public long ProductId { get; set; }
 
     [Column("quantity")]
     public int Quantity { get; set; }
 
-    [ForeignKey("ProductId")]
     [InverseProperty("ProductSales")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual Product Product { get; set; } = null!;
 
-    [ForeignKey("SaleId")]
     [InverseProperty("ProductSales")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual Sale Sale { get; set; } = null!;
 }

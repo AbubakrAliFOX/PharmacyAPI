@@ -6,36 +6,37 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PharmacyAPI.Models;
 
-[Table("branch")]
+[Index(nameof(Number), IsUnique = true)]
 public partial class Branch
 {
-    [Key]
-    [Column("id")]
     public long Id { get; set; }
 
-    [Column("longitude")]
-    [StringLength(15)]
-    [Unicode(false)]
-    public string Longitude { get; set; } = null!;
+    public virtual int Number { get; set; }
 
-    [Column("latitude")]
-    [StringLength(15)]
-    [Unicode(false)]
-    public string Latitude { get; set; } = null!;
+    [StringLength(300)]
+    public string Description { get; set; } = null!;
 
-    [Column("manager_id")]
-    public long ManagerId { get; set; }
+    public virtual City City { get; set; } = null!;
+
+    [Precision(9, 6)]
+    public decimal Latitude { get; set; }
+
+    [Precision(9, 6)]
+    public decimal Longitude { get; set; }
 
     [InverseProperty("Branch")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual ICollection<Batch> Batches { get; set; } = new List<Batch>();
 
-    [ForeignKey("ManagerId")]
     [InverseProperty("Branches")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual User Manager { get; set; } = null!;
 
     [InverseProperty("Branch")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
 
     [InverseProperty("Branch")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

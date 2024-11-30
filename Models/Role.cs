@@ -6,18 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PharmacyAPI.Models;
 
-[Table("role")]
 public partial class Role
 {
-    [Key]
-    [Column("id")]
     public long Id { get; set; }
 
-    [Column("role")]
-    [StringLength(15)]
+    [StringLength(20)]
     [Unicode(false)]
-    public string Role1 { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
     [InverseProperty("Role")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

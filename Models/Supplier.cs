@@ -6,20 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PharmacyAPI.Models;
 
-[Table("supplier")]
 public partial class Supplier
 {
-    [Key]
-    [Column("id")]
     public long Id { get; set; }
 
-    [Column("person_id")]
-    public long PersonId { get; set; }
-
     [InverseProperty("Supplier")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual ICollection<Batch> Batches { get; set; } = new List<Batch>();
 
-    [ForeignKey("PersonId")]
     [InverseProperty("Suppliers")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual Person Person { get; set; } = null!;
 }

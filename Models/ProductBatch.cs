@@ -6,39 +6,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PharmacyAPI.Models;
 
-[Table("product_batch")]
 public partial class ProductBatch
 {
-    [Key]
-    [Column("id")]
     public long Id { get; set; }
 
-    [Column("product_id")]
-    public long ProductId { get; set; }
-
-    [Column("batch_id")]
-    public long BatchId { get; set; }
-
-    [Column("quantity")]
     public long Quantity { get; set; }
 
-    [Column("cost_price", TypeName = "decimal(8, 2)")]
+    [Precision(8, 2)]
     public decimal CostPrice { get; set; }
 
-    [Column("selling_price", TypeName = "decimal(8, 2)")]
+    [Precision(8, 2)]
     public decimal SellingPrice { get; set; }
 
-    [Column("expiration_date")]
     public DateOnly ExpirationDate { get; set; }
 
-    [ForeignKey("BatchId")]
     [InverseProperty("ProductBatches")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual Batch Batch { get; set; } = null!;
 
     [InverseProperty("ProductBatch")]
-    public virtual ICollection<InventoryAdjustment> InventoryAdjustments { get; set; } = new List<InventoryAdjustment>();
+    [DeleteBehavior(DeleteBehavior.NoAction)]
+    public virtual ICollection<InventoryAdjustment> InventoryAdjustments { get; set; } =
+        new List<InventoryAdjustment>();
 
-    [ForeignKey("ProductId")]
     [InverseProperty("ProductBatches")]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual Product Product { get; set; } = null!;
 }
