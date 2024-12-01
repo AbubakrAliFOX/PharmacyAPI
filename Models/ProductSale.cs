@@ -8,7 +8,7 @@ namespace PharmacyAPI.Models;
 
 public partial class ProductSale
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [Column("quantity")]
     public int Quantity { get; set; }

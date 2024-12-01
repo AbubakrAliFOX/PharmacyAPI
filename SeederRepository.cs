@@ -97,7 +97,6 @@ namespace PharmacyAPI.Data.Repositories
                 {
                     Email = "user2@example.com",
                     Password = "fasdfasdfadffsd",
-                    IsAdmin = false,
                     Person = persons[1],
                     Role = roles[1],
                     Manager = null,
@@ -110,7 +109,6 @@ namespace PharmacyAPI.Data.Repositories
                 {
                     Email = "user3@example.com",
                     Password = "fasdfasdfadffsd",
-                    IsAdmin = false,
                     Person = persons[2],
                     Role = roles[1],
                     Manager = null,
@@ -123,7 +121,6 @@ namespace PharmacyAPI.Data.Repositories
                 {
                     Email = "user4@example.com",
                     Password = "fasdfasdfadffsd",
-                    IsAdmin = true,
                     Person = persons[3],
                     Role = roles[1],
                     Manager = null,
@@ -140,7 +137,6 @@ namespace PharmacyAPI.Data.Repositories
             //     {
             //         Email = "user5@example.com",
             //         Password = "fasdfasdfadffsd",
-            //         IsAdmin = true,
             //         Person = persons[0],
             //         Role = roles[2],
             //         Manager = null,
@@ -153,7 +149,6 @@ namespace PharmacyAPI.Data.Repositories
             //     {
             //         Email = "user2@example.com",
             //         Password = "fasdfasdfadffsd",
-            //         IsAdmin = false,
             //         Person = persons[1],
             //         Role = roles[1]
             //         ManagerId = 1,
@@ -166,7 +161,6 @@ namespace PharmacyAPI.Data.Repositories
             //     {
             //         Email = "user3@example.com",
             //         Password = "fasdfasdfadffsd",
-            //         IsAdmin = false,
             //         Person = persons[2],
             //         RoleId = 1,
             //         ManagerId = 2,
@@ -179,7 +173,6 @@ namespace PharmacyAPI.Data.Repositories
             //     {
             //         Email = "user4@example.com",
             //         Password = "fasdfasdfadffsd",
-            //         IsAdmin = true,
             //         Person = persons[3],
             //         Role = roles[1];
             //         ManagerId = null,
@@ -192,7 +185,6 @@ namespace PharmacyAPI.Data.Repositories
             //     {
             //         Email = "user5@example.com",
             //         Password = "fasdfasdfadffsd",
-            //         IsAdmin = false,
             //         Person = persons[4],
             //         RoleId = 1,
             //         ManagerId = 3,

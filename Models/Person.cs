@@ -9,7 +9,7 @@ namespace PharmacyAPI.Models;
 
 public partial class Person
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [StringLength(50)]
     [Unicode(true)]

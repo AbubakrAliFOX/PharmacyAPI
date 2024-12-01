@@ -8,7 +8,7 @@ namespace PharmacyAPI.Models;
 
 public partial class Sale
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     public DateTime Date { get; set; }
 

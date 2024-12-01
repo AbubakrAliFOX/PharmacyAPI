@@ -9,7 +9,7 @@ namespace PharmacyAPI.Models;
 [Index(nameof(Number), IsUnique = true)]
 public partial class Branch
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     public virtual int Number { get; set; }
 

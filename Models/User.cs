@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using PharmacyAPI.DTOs;
 
 namespace PharmacyAPI.Models;
 
 [Index(nameof(Email), IsUnique = true)]
 public partial class User
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [StringLength(100)]
     public string UserName { get; set; } = null!;
@@ -26,9 +27,15 @@ public partial class User
 
     public bool IsDeleted { get; set; } = false;
 
+    public int PersonId { get; set; }
+    public int? ManagerId { get; set; }
+    public int? BranchId { get; set; }
+    public int RoleId { get; set; }
+
     /// <summary>
     /// If a user has no branch, he is admin
     /// </summary>
+    [ForeignKey(nameof(BranchId))]
     [InverseProperty("Users")]
     [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual Branch? Branch { get; set; }
@@ -49,14 +56,17 @@ public partial class User
     [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual ICollection<User> InverseManager { get; set; } = new List<User>();
 
+    [ForeignKey(nameof(ManagerId))]
     [InverseProperty("InverseManager")]
     [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual User? Manager { get; set; }
 
+    [ForeignKey(nameof(PersonId))]
     [InverseProperty("Users")]
     [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual Person Person { get; set; } = null!;
 
+    [ForeignKey(nameof(RoleId))]
     [InverseProperty("Users")]
     [DeleteBehavior(DeleteBehavior.NoAction)]
     public virtual Role Role { get; set; } = null!;

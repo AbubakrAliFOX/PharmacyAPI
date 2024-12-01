@@ -8,7 +8,7 @@ namespace PharmacyAPI.Models;
 
 public partial class InventoryAdjustment
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// 1 = Damage, 2 = Expiration, 3 = Correction, 4 = Theft, 5 = Other

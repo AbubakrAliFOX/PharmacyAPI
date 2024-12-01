@@ -8,7 +8,7 @@ namespace PharmacyAPI.Models;
 
 public partial class Role
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [StringLength(20)]
     [Unicode(false)]

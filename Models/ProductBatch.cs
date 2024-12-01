@@ -8,9 +8,9 @@ namespace PharmacyAPI.Models;
 
 public partial class ProductBatch
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
-    public long Quantity { get; set; }
+    public int Quantity { get; set; }
 
     [Precision(8, 2)]
     public decimal CostPrice { get; set; }

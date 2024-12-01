@@ -8,7 +8,7 @@ namespace PharmacyAPI.Models;
 
 public partial class Supplier
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [InverseProperty("Supplier")]
     [DeleteBehavior(DeleteBehavior.NoAction)]
