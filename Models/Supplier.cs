@@ -10,11 +10,19 @@ public partial class Supplier
 {
     public int Id { get; set; }
 
-    [InverseProperty("Supplier")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
-    public virtual ICollection<Batch> Batches { get; set; } = new List<Batch>();
+    [StringLength(50)]
+    [Unicode(true)]
+    public string FirstName { get; set; } = null!;
 
-    [InverseProperty("Suppliers")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
-    public virtual Person Person { get; set; } = null!;
+    [StringLength(50)]
+    [Unicode(true)]
+    public string LastName { get; set; } = null!;
+
+    [StringLength(15)]
+    [Unicode(false)]
+    public string PhoneNumber { get; set; } = null!;
+
+    [InverseProperty("Supplier")]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
+    public virtual ICollection<Batch> Batches { get; set; } = new List<Batch>();
 }

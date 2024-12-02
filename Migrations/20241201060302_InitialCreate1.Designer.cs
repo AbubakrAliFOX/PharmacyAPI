@@ -495,13 +495,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Branch", "Branch")
                         .WithMany("Batches")
                         .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Supplier", "Supplier")
                         .WithMany("Batches")
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Branch");
@@ -520,7 +520,7 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.User", "Manager")
                         .WithMany("Branches")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -533,7 +533,7 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Person", "Person")
                         .WithMany("Customers")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Person");
@@ -544,13 +544,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.ProductBatch", "ProductBatch")
                         .WithMany("InventoryAdjustments")
                         .HasForeignKey("ProductBatchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.User", "User")
                         .WithMany("InventoryAdjustments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ProductBatch");
@@ -563,13 +563,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Manufacturer", "Manufacturer")
                         .WithMany("Products")
                         .HasForeignKey("ManufacturerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -582,13 +582,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Batch", "Batch")
                         .WithMany("ProductBatches")
                         .HasForeignKey("BatchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Product", "Product")
                         .WithMany("ProductBatches")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Batch");
@@ -601,13 +601,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Product", "Product")
                         .WithMany("ProductSales")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Sale", "Sale")
                         .WithMany("ProductSales")
                         .HasForeignKey("SaleId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -620,19 +620,19 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Branch", "Branch")
                         .WithMany("Sales")
                         .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Customer", "Customer")
                         .WithMany("Sales")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.User", "User")
                         .WithMany("Sales")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Branch");
@@ -647,7 +647,7 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Person", "Person")
                         .WithMany("Suppliers")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Person");
@@ -658,25 +658,25 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Branch", "Branch")
                         .WithMany("Users")
                         .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.User", "Manager")
                         .WithMany("InverseManager")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Person", "Person")
                         .WithMany("Users")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Branch");

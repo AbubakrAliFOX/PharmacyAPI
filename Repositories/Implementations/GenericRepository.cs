@@ -35,19 +35,29 @@ namespace PharmacyAPI.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             _dbSet.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var entity = _dbSet.Find(id);
-            if (entity != null)
+            try
             {
-                _dbSet.Remove(entity);
-                _context.SaveChanges();
+                var entity = await _dbSet.FindAsync(id);
+                if (entity != null)
+                {
+                    _dbSet.Remove(entity);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new InvalidOperationException(
+                    "Cannot delete the user as it is associated with other entities.",
+                    ex
+                );
             }
         }
     }

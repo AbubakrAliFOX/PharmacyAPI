@@ -22,10 +22,10 @@ public partial class InventoryAdjustment
     public DateTime Date { get; set; }
 
     [InverseProperty("InventoryAdjustments")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ProductBatch ProductBatch { get; set; } = null!;
 
     [InverseProperty("InventoryAdjustments")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual User User { get; set; } = null!;
 }

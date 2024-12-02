@@ -13,12 +13,10 @@ namespace PharmacyAPI.Services
     public class UserService
     {
         private readonly IRepository<User> _userRepository;
-        private readonly IRepository<Person> _personRepository;
 
-        public UserService(IRepository<User> userRepository, IRepository<Person> personRepository)
+        public UserService(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
-            _personRepository = personRepository;
         }
 
         public async Task<IEnumerable<UserBasic>> GetAllUsers()
@@ -28,29 +26,55 @@ namespace PharmacyAPI.Services
             return users.Select(UserMapping.ToUserBasic).ToList();
         }
 
-        public async Task<UserWithPerson> GetUserById(int id)
+        public async Task<UserExtensive> GetUserById(int id)
         {
             var user = await _userRepository.GetById(id);
-            var person = await _personRepository.GetById(user.PersonId);
 
-            return UserMapping.ToUserWithPerson(user, person);
+            return UserMapping.ToUserExtensive(user);
         }
 
-        public void AddUser(UserDTOExtensive userDTO)
+        public UserExtensive AddUser(UserCreate userDTO)
         {
             var user = UserMapping.ToUserEntity(userDTO);
             _userRepository.Add(user);
+            return UserMapping.ToUserExtensive(user);
         }
 
-        public void UpdateUser(UserBasic userDTO)
+        public async Task UpdateUser(UserExtensive userDTO)
         {
-            var user = UserMapping.ToUserEntity(userDTO);
-            _userRepository.Update(user);
+            try
+            {
+                User user = await _userRepository.GetById(userDTO.Id);
+
+                if (user == null)
+                    throw new KeyNotFoundException($"User with ID {userDTO.Id} not found.");
+
+                // Update fields
+                user.UserName = userDTO.UserName;
+                user.Email = userDTO.Email;
+                user.FirstName = userDTO.FirstName;
+                user.LastName = userDTO.LastName;
+                user.PhoneNumber = userDTO.PhoneNumber;
+                user.Address = userDTO.Address;
+                user.Gender = userDTO.Gender;
+                user.BranchId = userDTO.BranchId;
+                user.ManagerId = userDTO.ManagerId;
+                user.RoleId = userDTO.RoleId;
+
+                // Persist changes
+                await _userRepository.Update(user);
+            }
+            catch (Exception ex)
+            {
+                // Log exception
+                Console.WriteLine($"Error updating user: {ex.Message}");
+                throw;
+            }
         }
 
-        public void DeleteUser(int id)
+        public async Task DeleteUser(int id)
         {
-            _userRepository.Delete(id);
+            await _userRepository.Delete(id);
         }
     }
 }

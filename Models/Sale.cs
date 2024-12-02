@@ -16,18 +16,18 @@ public partial class Sale
     public decimal TotalPrice { get; set; }
 
     [InverseProperty("Sales")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Branch Branch { get; set; } = null!;
 
     [InverseProperty("Sales")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Customer Customer { get; set; } = null!;
 
     [InverseProperty("Sale")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<ProductSale> ProductSales { get; set; } = new List<ProductSale>();
 
     [InverseProperty("Sales")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual User User { get; set; } = null!;
 }

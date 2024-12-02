@@ -21,15 +21,15 @@ public partial class ProductBatch
     public DateOnly ExpirationDate { get; set; }
 
     [InverseProperty("ProductBatches")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Batch Batch { get; set; } = null!;
 
     [InverseProperty("ProductBatch")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<InventoryAdjustment> InventoryAdjustments { get; set; } =
         new List<InventoryAdjustment>();
 
     [InverseProperty("ProductBatches")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Product Product { get; set; } = null!;
 }

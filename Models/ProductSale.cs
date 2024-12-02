@@ -14,10 +14,10 @@ public partial class ProductSale
     public int Quantity { get; set; }
 
     [InverseProperty("ProductSales")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Product Product { get; set; } = null!;
 
     [InverseProperty("ProductSales")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Sale Sale { get; set; } = null!;
 }

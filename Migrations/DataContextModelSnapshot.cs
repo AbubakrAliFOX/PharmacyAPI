@@ -136,18 +136,38 @@ namespace PharmacyAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CustomerNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(15)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
 
                     b.ToTable("Customers");
                 });
@@ -202,45 +222,6 @@ namespace PharmacyAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Manufacturers");
-                });
-
-            modelBuilder.Entity("PharmacyAPI.Models.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(255)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(15)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("People");
                 });
 
             modelBuilder.Entity("PharmacyAPI.Models.Product", b =>
@@ -416,12 +397,25 @@ namespace PharmacyAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(15)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
 
                     b.ToTable("Suppliers");
                 });
@@ -434,6 +428,10 @@ namespace PharmacyAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("BranchId")
                         .HasColumnType("int");
 
@@ -443,11 +441,26 @@ namespace PharmacyAPI.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("ManagerId")
                         .HasColumnType("int");
@@ -460,8 +473,11 @@ namespace PharmacyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -480,8 +496,6 @@ namespace PharmacyAPI.Migrations
 
                     b.HasIndex("ManagerId");
 
-                    b.HasIndex("PersonId");
-
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
@@ -492,13 +506,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Branch", "Branch")
                         .WithMany("Batches")
                         .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Supplier", "Supplier")
                         .WithMany("Batches")
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Branch");
@@ -517,7 +531,7 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.User", "Manager")
                         .WithMany("Branches")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -525,29 +539,18 @@ namespace PharmacyAPI.Migrations
                     b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("PharmacyAPI.Models.Customer", b =>
-                {
-                    b.HasOne("PharmacyAPI.Models.Person", "Person")
-                        .WithMany("Customers")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("PharmacyAPI.Models.InventoryAdjustment", b =>
                 {
                     b.HasOne("PharmacyAPI.Models.ProductBatch", "ProductBatch")
                         .WithMany("InventoryAdjustments")
                         .HasForeignKey("ProductBatchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.User", "User")
                         .WithMany("InventoryAdjustments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ProductBatch");
@@ -560,13 +563,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Manufacturer", "Manufacturer")
                         .WithMany("Products")
                         .HasForeignKey("ManufacturerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -579,13 +582,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Batch", "Batch")
                         .WithMany("ProductBatches")
                         .HasForeignKey("BatchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Product", "Product")
                         .WithMany("ProductBatches")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Batch");
@@ -598,13 +601,13 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Product", "Product")
                         .WithMany("ProductSales")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Sale", "Sale")
                         .WithMany("ProductSales")
                         .HasForeignKey("SaleId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -617,19 +620,19 @@ namespace PharmacyAPI.Migrations
                     b.HasOne("PharmacyAPI.Models.Branch", "Branch")
                         .WithMany("Sales")
                         .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.Customer", "Customer")
                         .WithMany("Sales")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PharmacyAPI.Models.User", "User")
                         .WithMany("Sales")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Branch");
@@ -639,46 +642,27 @@ namespace PharmacyAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PharmacyAPI.Models.Supplier", b =>
-                {
-                    b.HasOne("PharmacyAPI.Models.Person", "Person")
-                        .WithMany("Suppliers")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("PharmacyAPI.Models.User", b =>
                 {
                     b.HasOne("PharmacyAPI.Models.Branch", "Branch")
                         .WithMany("Users")
                         .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PharmacyAPI.Models.User", "Manager")
                         .WithMany("InverseManager")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("PharmacyAPI.Models.Person", "Person")
-                        .WithMany("Users")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PharmacyAPI.Models.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Branch");
 
                     b.Navigation("Manager");
-
-                    b.Navigation("Person");
 
                     b.Navigation("Role");
                 });
@@ -710,15 +694,6 @@ namespace PharmacyAPI.Migrations
             modelBuilder.Entity("PharmacyAPI.Models.Manufacturer", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("PharmacyAPI.Models.Person", b =>
-                {
-                    b.Navigation("Customers");
-
-                    b.Navigation("Suppliers");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("PharmacyAPI.Models.Product", b =>

@@ -16,15 +16,15 @@ public partial class Batch
     public decimal TotalCost { get; set; }
 
     [InverseProperty("Batches")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Branch Branch { get; set; } = null!;
 
     [InverseProperty("Batch")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<ProductBatch> ProductBatches { get; set; } =
         new List<ProductBatch>();
 
     [InverseProperty("Batches")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Supplier Supplier { get; set; } = null!;
 }

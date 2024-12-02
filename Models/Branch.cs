@@ -25,18 +25,18 @@ public partial class Branch
     public decimal Longitude { get; set; }
 
     [InverseProperty("Branch")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<Batch> Batches { get; set; } = new List<Batch>();
 
     [InverseProperty("Branches")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual User Manager { get; set; } = null!;
 
     [InverseProperty("Branch")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
 
     [InverseProperty("Branch")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

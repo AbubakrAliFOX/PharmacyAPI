@@ -32,19 +32,19 @@ public partial class Product
     public bool IsDeleted { get; set; }
 
     [InverseProperty("Products")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Category Category { get; set; } = null!;
 
     [InverseProperty("Products")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual Manufacturer Manufacturer { get; set; } = null!;
 
     [InverseProperty("Product")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<ProductBatch> ProductBatches { get; set; } =
         new List<ProductBatch>();
 
     [InverseProperty("Product")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<ProductSale> ProductSales { get; set; } = new List<ProductSale>();
 }

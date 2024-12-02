@@ -9,6 +9,7 @@ using PharmacyAPI.Data;
 using PharmacyAPI.Data.Repositories;
 using PharmacyAPI.Data.Repositories.Interfaces;
 using PharmacyAPI.DTOs;
+using PharmacyAPI.DTOs.User;
 using PharmacyAPI.Models;
 using PharmacyAPI.Services;
 
@@ -44,12 +45,16 @@ namespace PharmacyAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser([FromBody] UserDTOExtensive userDTO)
+        public IActionResult AddUser(UserCreate userDTO)
         {
             try
             {
-                _userService.AddUser(userDTO);
-                return CreatedAtAction(nameof(GetUserById), new { id = userDTO.Id }, userDTO);
+                UserExtensive createdUser = _userService.AddUser(userDTO);
+                return CreatedAtAction(
+                    nameof(GetUserById),
+                    new { id = createdUser.Id },
+                    createdUser
+                );
             }
             catch (Exception ex)
             {
@@ -60,30 +65,30 @@ namespace PharmacyAPI.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser([FromBody] UserBasic userDTO)
+        [HttpPatch]
+        public async Task<IActionResult> UpdateUser([FromBody] UserExtensive userDTO)
         {
-            return Ok(userDTO);
-            // try
-            // {
-            //     _userService.UpdateUser(userDTO);
-            //     return NoContent();
-            // }
-            // catch (Exception ex)
-            // {
-            //     return StatusCode(
-            //         StatusCodes.Status500InternalServerError,
-            //         new { error = ex.Message }
-            //     );
-            // }
+            // return Ok(userDTO);
+            try
+            {
+                await _userService.UpdateUser(userDTO);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new { error = ex.Message }
+                );
+            }
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
             try
             {
-                _userService.DeleteUser(id);
+                await _userService.DeleteUser(id);
                 return NoContent();
             }
             catch (Exception ex)

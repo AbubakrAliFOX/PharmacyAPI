@@ -22,50 +22,6 @@ namespace PharmacyAPI.Data.Repositories
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
 
-            var persons = new List<Person>
-            {
-                new Person
-                {
-                    FirstName = "John",
-                    LastName = "Doe",
-                    PhoneNumber = "1234567890",
-                    Address = "123 Elm Street",
-                    Gender = Gender.Male
-                },
-                new Person
-                {
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    PhoneNumber = "9876543210",
-                    Address = "456 Oak Avenue",
-                    Gender = Gender.Female
-                },
-                new Person
-                {
-                    FirstName = "Michael",
-                    LastName = "Johnson",
-                    PhoneNumber = "1112223333",
-                    Address = "789 Pine Lane",
-                    Gender = Gender.Male
-                },
-                new Person
-                {
-                    FirstName = "Emily",
-                    LastName = "Davis",
-                    PhoneNumber = "4445556666",
-                    Address = "321 Maple Road",
-                    Gender = Gender.Female
-                },
-                new Person
-                {
-                    FirstName = "Daniel",
-                    LastName = "Brown",
-                    PhoneNumber = "7778889999",
-                    Address = "654 Birch Way",
-                    Gender = Gender.Male
-                }
-            };
-
             var roles = new List<Role>
             {
                 new Role { Name = "Admin" },
@@ -85,49 +41,61 @@ namespace PharmacyAPI.Data.Repositories
                     Email = "user1@example.com",
                     Password = "fasdfasdfadffsd",
                     IsAdmin = true,
-                    Person = persons[0],
+                    FirstName = "John",
+                    LastName = "Doe",
+                    PhoneNumber = "1234567890",
+                    Address = "123 Elm Street",
+                    Gender = Gender.Male,
                     Role = roles[0],
                     Manager = null,
                     Branch = null,
                     PasswordSalt = "fdsfasddf",
                     UserName = "UserOne",
-                    IsDeleted = false
                 },
                 new User
                 {
                     Email = "user2@example.com",
                     Password = "fasdfasdfadffsd",
-                    Person = persons[1],
+                    FirstName = "Jane",
+                    LastName = "Smith",
+                    PhoneNumber = "9876543210",
+                    Address = "456 Oak Avenue",
+                    Gender = Gender.Female,
                     Role = roles[1],
                     Manager = null,
                     Branch = null,
                     PasswordSalt = "fdsfasddf",
                     UserName = "UserTwo",
-                    IsDeleted = false
                 },
                 new User
                 {
                     Email = "user3@example.com",
                     Password = "fasdfasdfadffsd",
-                    Person = persons[2],
+                    FirstName = "Michael",
+                    LastName = "Johnson",
+                    PhoneNumber = "1112223333",
+                    Address = "789 Pine Lane",
+                    Gender = Gender.Male,
                     Role = roles[1],
                     Manager = null,
                     Branch = null,
                     PasswordSalt = "fdsfasddf",
                     UserName = "UserThree",
-                    IsDeleted = false
                 },
                 new User
                 {
                     Email = "user4@example.com",
                     Password = "fasdfasdfadffsd",
-                    Person = persons[3],
+                    FirstName = "Emily",
+                    LastName = "Davis",
+                    PhoneNumber = "4445556666",
+                    Address = "321 Maple Road",
+                    Gender = Gender.Female,
                     Role = roles[1],
                     Manager = null,
                     Branch = null,
                     PasswordSalt = "fdsfasddf",
                     UserName = "UserFour",
-                    IsDeleted = false
                 }
             };
 
@@ -143,7 +111,6 @@ namespace PharmacyAPI.Data.Repositories
             //         Branch = null,
             //         PasswordSalt = "fdsfasddf",
             //         UserName = "UserFive",
-            //         IsDeleted = false
             //     },
             //     new User
             //     {
@@ -155,7 +122,6 @@ namespace PharmacyAPI.Data.Repositories
             //         Branch = branches[0],
             //         PasswordSalt = "fdsfasddf",
             //         UserName = "UserTwo",
-            //         IsDeleted = false
             //     },
             //     new User
             //     {
@@ -167,7 +133,6 @@ namespace PharmacyAPI.Data.Repositories
             //         Branch = branches[0],
             //         PasswordSalt = "fdsfasddf",
             //         UserName = "UserThree",
-            //         IsDeleted = false
             //     },
             //     new User
             //     {
@@ -179,7 +144,6 @@ namespace PharmacyAPI.Data.Repositories
             //         Branch = branches[0],
             //         PasswordSalt = "fdsfasddf",
             //         UserName = "UserFour",
-            //         IsDeleted = false
             //     },
             //     new User
             //     {
@@ -191,7 +155,6 @@ namespace PharmacyAPI.Data.Repositories
             //         Branch = branches[0],
             //         PasswordSalt = "fdsfasddf",
             //         UserName = "UserFive",
-            //         IsDeleted = false
             //     }
             // };
 
@@ -231,7 +194,6 @@ namespace PharmacyAPI.Data.Repositories
             // adminAndManagers[2].Branch = branches[1];
             // adminAndManagers[3].Branch = branches[2];
 
-            _context.People.AddRange(persons);
             _context.Cities.AddRange(city1, city2, city3, city4);
             _context.Roles.AddRange(roles);
 

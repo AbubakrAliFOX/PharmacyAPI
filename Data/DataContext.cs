@@ -24,8 +24,6 @@ public partial class DataContext : DbContext
 
     public virtual DbSet<Manufacturer> Manufacturers { get; set; }
 
-    public virtual DbSet<Person> People { get; set; }
-
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<ProductBatch> ProductBatches { get; set; }
@@ -51,6 +49,7 @@ public partial class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Person>().Property(p => p.Gender).HasConversion<int>(); // Store as an integer in the database
+        modelBuilder.Entity<User>().Property(p => p.Gender).HasConversion<int>(); // Store as an integer in the database
+        modelBuilder.Entity<Customer>().Property(p => p.Gender).HasConversion<int>(); // Store as an integer in the database
     }
 }

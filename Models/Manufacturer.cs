@@ -13,6 +13,6 @@ public partial class Manufacturer
     public string Name { get; set; } = null!;
 
     [InverseProperty("Manufacturer")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

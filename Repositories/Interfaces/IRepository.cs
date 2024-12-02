@@ -11,7 +11,7 @@ namespace PharmacyAPI.Data.Repositories.Interfaces
         Task<List<T>> GetAll();
         Task<T> GetById(int id);
         void Add(T entity);
-        void Update(T entity);
-        void Delete(int id);
+        Task Update(T entity);
+        Task Delete(int id);
     }
 }

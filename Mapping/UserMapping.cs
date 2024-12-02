@@ -23,6 +23,44 @@ namespace PharmacyAPI.Mapping
             };
         }
 
+        public static UserExtensive ToUserExtensive(User user)
+        {
+            return new UserExtensive
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
+                Gender = user.Gender,
+                Email = user.Email,
+                BranchId = user.BranchId,
+                ManagerId = user.ManagerId,
+                RoleId = user.RoleId
+            };
+        }
+
+        public static UserCreate ToUserCreate(User user)
+        {
+            return new UserCreate
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
+                Gender = user.Gender,
+                Password = user.Password,
+                PasswordSalt = user.PasswordSalt,
+                BranchId = user.BranchId,
+                ManagerId = user.ManagerId,
+                RoleId = user.RoleId
+            };
+        }
+
         public static User ToUserEntity(UserBasic userBasicDTO)
         {
             return new User
@@ -37,27 +75,49 @@ namespace PharmacyAPI.Mapping
             };
         }
 
-        public static User ToUserEntity(UserDTOExtensive userDTOEx)
+        public static User ToUserEntity(UserCreate userDTO)
         {
             return new User
             {
-                Id = userDTOEx.Id,
-                PersonId = userDTOEx.PersonId,
-                UserName = userDTOEx.UserName,
-                Password = userDTOEx.Password,
-                PasswordSalt = userDTOEx.PasswordSalt,
-                Email = userDTOEx.Email,
-                BranchId = userDTOEx.BranchId,
-                ManagerId = userDTOEx.ManagerId,
-                RoleId = userDTOEx.RoleId
+                Id = userDTO.Id,
+                UserName = userDTO.UserName,
+                Email = userDTO.Email,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                PhoneNumber = userDTO.PhoneNumber,
+                Address = userDTO.Address,
+                Gender = userDTO.Gender,
+                Password = userDTO.Password,
+                PasswordSalt = userDTO.PasswordSalt,
+                BranchId = userDTO.BranchId,
+                ManagerId = userDTO.ManagerId,
+                RoleId = userDTO.RoleId
             };
         }
 
-        public static UserWithPerson ToUserWithPerson(User user, Person person)
+        public static User ToUserEntity(UserExtensive userDTO)
         {
-            PersonBasic personBasic = PersonMapping.ToPersonBasic(person);
-            UserBasic userBasic = ToUserBasic(user);
-            return new UserWithPerson { personBasicInfo = personBasic, userBasicInfo = userBasic };
+            return new User
+            {
+                Id = userDTO.Id,
+                UserName = userDTO.UserName,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                PhoneNumber = userDTO.PhoneNumber,
+                Address = userDTO.Address,
+                Gender = userDTO.Gender,
+                Email = userDTO.Email,
+                BranchId = userDTO.BranchId,
+                ManagerId = userDTO.ManagerId,
+                RoleId = userDTO.RoleId
+            };
         }
+
+        // public static UserWithPerson ToUserWithPerson(User user)
+        // {
+        //     PersonBasic personBasic = PersonMapping.ToPersonBasic(person);
+        //     UserBasic userBasic = ToUserBasic(user);
+        //     return new UserWithPerson { personBasicInfo = personBasic, userBasicInfo = userBasic };
+        // }
     }
 }
