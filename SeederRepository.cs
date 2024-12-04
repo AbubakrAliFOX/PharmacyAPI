@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PharmacyAPI.Data.Repositories.Interfaces;
 using PharmacyAPI.Enums;
 using PharmacyAPI.Models;
@@ -17,7 +18,7 @@ namespace PharmacyAPI.Data.Repositories
             _context = context;
         }
 
-        public void Seed()
+        public async Task Seed()
         {
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
@@ -48,7 +49,6 @@ namespace PharmacyAPI.Data.Repositories
                     Gender = Gender.Male,
                     Role = roles[0],
                     Manager = null,
-                    Branch = null,
                     PasswordSalt = "fdsfasddf",
                     UserName = "UserOne",
                 },
@@ -76,8 +76,8 @@ namespace PharmacyAPI.Data.Repositories
                     PhoneNumber = "1112223333",
                     Address = "789 Pine Lane",
                     Gender = Gender.Male,
-                    Role = roles[1],
-                    Manager = null,
+                    Role = roles[2],
+                    ManagerId = 2,
                     Branch = null,
                     PasswordSalt = "fdsfasddf",
                     UserName = "UserThree",
@@ -91,8 +91,8 @@ namespace PharmacyAPI.Data.Repositories
                     PhoneNumber = "4445556666",
                     Address = "321 Maple Road",
                     Gender = Gender.Female,
-                    Role = roles[1],
-                    Manager = null,
+                    Role = roles[2],
+                    ManagerId = 2,
                     Branch = null,
                     PasswordSalt = "fdsfasddf",
                     UserName = "UserFour",
@@ -163,6 +163,7 @@ namespace PharmacyAPI.Data.Repositories
                 new Branch
                 {
                     Number = 1,
+                    Name = "Al Khaleej",
                     Description = "حي الخليج طريق الملك عبدالله أمام مكتبة جرير",
                     Latitude = 24.789847m,
                     Longitude = 46.807607m,
@@ -172,8 +173,9 @@ namespace PharmacyAPI.Data.Repositories
                 new Branch
                 {
                     Number = 2,
+                    Name = "Al Malaz",
                     Description =
-                        "حي الملز طريق صلاح الدين الأيوبي ( الستين ) أمام مستشفى قوى الأمن",
+                        "Al Malaz District, Salah Ad Din Al Ayyubi Rd, In Front of Security Forces Hospital",
                     Latitude = 24.789847m,
                     Longitude = 46.807607m,
                     Manager = adminAndManagers[2],
@@ -182,7 +184,9 @@ namespace PharmacyAPI.Data.Repositories
                 new Branch
                 {
                     Number = 3,
-                    Description = "حي الملك فيصل شارع قس بن ساعدة أمام تموينات سلة الجنان",
+                    Name = "King Faisal",
+                    Description =
+                        "King Faisal District, Qis Bin Saeda St, In Front of Al-Jenan Supermarket",
                     Latitude = 24.789847m,
                     Longitude = 46.807607m,
                     Manager = adminAndManagers[3],
@@ -202,6 +206,18 @@ namespace PharmacyAPI.Data.Repositories
 
             // Save changes to the database
             _context.SaveChanges();
+        }
+
+        public async Task BindUsersWithBranches()
+        {
+            var users = await _context.Users.Include(user => user.Role).ToListAsync();
+
+            foreach (var user in users)
+            {
+                user.BranchId = 1;
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 }

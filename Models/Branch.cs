@@ -13,6 +13,10 @@ public partial class Branch
 
     public virtual int Number { get; set; }
 
+    [StringLength(100)]
+    [Unicode(true)]
+    public string Name { get; set; } = null!;
+
     [StringLength(300)]
     public string Description { get; set; } = null!;
 

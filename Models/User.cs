@@ -16,6 +16,8 @@ public partial class User
     [StringLength(100)]
     public string UserName { get; set; } = null!;
 
+    public string? ImageUrl { get; set; }
+
     [StringLength(255)]
     [Unicode(false)]
     public string Email { get; set; } = null!;

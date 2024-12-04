@@ -3,12 +3,30 @@ using Microsoft.EntityFrameworkCore;
 using PharmacyAPI.Data;
 using PharmacyAPI.Data.Repositories;
 using PharmacyAPI.Data.Repositories.Interfaces;
+using PharmacyAPI.Repositories.Implementations;
+using PharmacyAPI.Repositories.Interfaces;
 using PharmacyAPI.Services;
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:4200", "https://localhost:4200", "null")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
+});
 
+// Add services to the container.
 builder
     .Services.AddControllers()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -20,10 +38,12 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 // Repositories
 builder.Services.AddScoped<ISeederRepository, SeederRepository>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMetadataRepository, MetadataRepository>();
 
 // Services
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<MetadataService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,6 +59,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

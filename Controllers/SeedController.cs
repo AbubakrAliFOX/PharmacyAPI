@@ -19,9 +19,10 @@ namespace PharmacyAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Seed()
+        public async Task<ActionResult> Seed()
         {
-            _seeder.Seed();
+            await _seeder.Seed();
+            await _seeder.BindUsersWithBranches();
             return Ok("Seeded!");
         }
     }

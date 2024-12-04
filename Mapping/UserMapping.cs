@@ -15,11 +15,9 @@ namespace PharmacyAPI.Mapping
             return new UserBasic
             {
                 Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                BranchId = user.BranchId,
-                ManagerId = user.ManagerId,
-                RoleId = user.RoleId
+                FullName = user.FirstName + " " + user.LastName,
+                BranchName = user.Branch?.Name,
+                RoleName = user.Role?.Name,
             };
         }
 
@@ -61,19 +59,19 @@ namespace PharmacyAPI.Mapping
             };
         }
 
-        public static User ToUserEntity(UserBasic userBasicDTO)
-        {
-            return new User
-            {
-                Id = userBasicDTO.Id,
-                // PersonId = userBasicDTO.PersonId,
-                UserName = userBasicDTO.UserName,
-                Email = userBasicDTO.Email,
-                BranchId = userBasicDTO.BranchId,
-                ManagerId = userBasicDTO.ManagerId,
-                RoleId = userBasicDTO.RoleId
-            };
-        }
+        // public static User ToUserEntity(UserBasic userBasicDTO)
+        // {
+        //     return new User
+        //     {
+        //         Id = userBasicDTO.Id,
+        //         // PersonId = userBasicDTO.PersonId,
+        //         UserName = userBasicDTO.UserName,
+        //         Email = userBasicDTO.Email,
+        //         BranchId = userBasicDTO.BranchId,
+        //         ManagerId = userBasicDTO.ManagerId,
+        //         RoleId = userBasicDTO.RoleId
+        //     };
+        // }
 
         public static User ToUserEntity(UserCreate userDTO)
         {
@@ -113,11 +111,15 @@ namespace PharmacyAPI.Mapping
             };
         }
 
-        // public static UserWithPerson ToUserWithPerson(User user)
-        // {
-        //     PersonBasic personBasic = PersonMapping.ToPersonBasic(person);
-        //     UserBasic userBasic = ToUserBasic(user);
-        //     return new UserWithPerson { personBasicInfo = personBasic, userBasicInfo = userBasic };
-        // }
+        public static ManagerBasic ToManagerBasic(User user)
+        {
+            return new ManagerBasic
+            {
+                Id = user.Id,
+                FullName = user.FirstName + " " + user.LastName,
+                ImageUrl = user.ImageUrl,
+                Branch = new BranchBasic { Id = user.Branch.Id, Name = user.Branch.Name }
+            };
+        }
     }
 }

@@ -6,12 +6,11 @@ using PharmacyAPI.Models;
 
 namespace PharmacyAPI.DTOs
 {
-    public class UserBasic
+    public class ManagerBasic
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;
         public string ImageUrl { get; set; } = null!;
-        public string BranchName { get; set; } = null!;
-        public string RoleName { get; set; } = null!;
+        public BranchBasic Branch { get; set; } = null!;
     }
 }

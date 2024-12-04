@@ -7,14 +7,15 @@ using PharmacyAPI.DTOs;
 using PharmacyAPI.DTOs.User;
 using PharmacyAPI.Mapping;
 using PharmacyAPI.Models;
+using PharmacyAPI.Repositories.Interfaces;
 
 namespace PharmacyAPI.Services
 {
     public class UserService
     {
-        private readonly IRepository<User> _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IRepository<User> userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
