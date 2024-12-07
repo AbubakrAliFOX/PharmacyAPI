@@ -24,8 +24,6 @@ public partial class User
 
     public string Password { get; set; } = null!;
 
-    public string PasswordSalt { get; set; } = null!;
-
     [StringLength(50)]
     [Unicode(true)]
     public string FirstName { get; set; } = null!;

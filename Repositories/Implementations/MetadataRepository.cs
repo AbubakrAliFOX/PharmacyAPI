@@ -20,7 +20,7 @@ namespace PharmacyAPI.Repositories.Implementations
 
         public async Task<List<Role>> GetRoles()
         {
-            return await _context.Roles.ToListAsync<Role>();
+            return await _context.Roles.Where(role => role.Name != "Admin").ToListAsync<Role>();
         }
 
         public async Task<List<Branch>> GetBranches()

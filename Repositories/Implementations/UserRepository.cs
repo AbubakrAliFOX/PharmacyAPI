@@ -32,10 +32,24 @@ namespace PharmacyAPI.Repositories.Implementations
             return await _context.Users.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async void Add(User entity)
+        public async Task<User> GetByEmail(string email)
         {
-            await _context.Users.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            var user = await _context.Users.FirstOrDefaultAsync(user => user.Email == email);
+            return user;
+        }
+
+        public async Task<User> Add(User user)
+        {
+            try
+            {
+                var addedUser = await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+                return addedUser.Entity;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task Update(User entity)

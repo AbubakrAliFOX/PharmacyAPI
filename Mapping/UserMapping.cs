@@ -32,32 +32,32 @@ namespace PharmacyAPI.Mapping
                 PhoneNumber = user.PhoneNumber,
                 Address = user.Address,
                 Gender = user.Gender,
-                Email = user.Email,
+                Email = user.Email.Trim().ToLower(),
                 BranchId = user.BranchId,
                 ManagerId = user.ManagerId,
                 RoleId = user.RoleId
             };
         }
 
-        public static UserCreate ToUserCreate(User user)
-        {
-            return new UserCreate
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber,
-                Address = user.Address,
-                Gender = user.Gender,
-                Password = user.Password,
-                PasswordSalt = user.PasswordSalt,
-                BranchId = user.BranchId,
-                ManagerId = user.ManagerId,
-                RoleId = user.RoleId
-            };
-        }
+        // public static UserCreate ToUserCreate(User user)
+        // {
+        //     return new UserCreate
+        //     {
+        //         Id = user.Id,
+        //         UserName = user.UserName,
+        //         Email = user.Email.Trim().ToLower(),
+        //         FirstName = user.FirstName,
+        //         LastName = user.LastName,
+        //         PhoneNumber = user.PhoneNumber,
+        //         Address = user.Address,
+        //         Gender = user.Gender,
+        //         Password = user.Password,
+        //         ImageUrl = user.ImageUrl,
+        //         BranchId = user.BranchId,
+        //         ManagerId = user.ManagerId,
+        //         RoleId = user.RoleId
+        //     };
+        // }
 
         // public static User ToUserEntity(UserBasic userBasicDTO)
         // {
@@ -66,7 +66,7 @@ namespace PharmacyAPI.Mapping
         //         Id = userBasicDTO.Id,
         //         // PersonId = userBasicDTO.PersonId,
         //         UserName = userBasicDTO.UserName,
-        //         Email = userBasicDTO.Email,
+        //         Email = userBasicDTO.Email.Trim().ToLower(),
         //         BranchId = userBasicDTO.BranchId,
         //         ManagerId = userBasicDTO.ManagerId,
         //         RoleId = userBasicDTO.RoleId
@@ -77,16 +77,15 @@ namespace PharmacyAPI.Mapping
         {
             return new User
             {
-                Id = userDTO.Id,
                 UserName = userDTO.UserName,
-                Email = userDTO.Email,
+                Email = userDTO.Email.Trim().ToLower(),
                 FirstName = userDTO.FirstName,
                 LastName = userDTO.LastName,
                 PhoneNumber = userDTO.PhoneNumber,
                 Address = userDTO.Address,
                 Gender = userDTO.Gender,
                 Password = userDTO.Password,
-                PasswordSalt = userDTO.PasswordSalt,
+                ImageUrl = userDTO.ImageUrl,
                 BranchId = userDTO.BranchId,
                 ManagerId = userDTO.ManagerId,
                 RoleId = userDTO.RoleId
@@ -104,7 +103,7 @@ namespace PharmacyAPI.Mapping
                 PhoneNumber = userDTO.PhoneNumber,
                 Address = userDTO.Address,
                 Gender = userDTO.Gender,
-                Email = userDTO.Email,
+                Email = userDTO.Email.Trim().ToLower(),
                 BranchId = userDTO.BranchId,
                 ManagerId = userDTO.ManagerId,
                 RoleId = userDTO.RoleId

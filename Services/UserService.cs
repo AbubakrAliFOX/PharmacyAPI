@@ -34,11 +34,10 @@ namespace PharmacyAPI.Services
             return UserMapping.ToUserExtensive(user);
         }
 
-        public UserExtensive AddUser(UserCreate userDTO)
+        public async Task<UserExtensive> AddUser(UserCreate userDTO)
         {
-            var user = UserMapping.ToUserEntity(userDTO);
-            _userRepository.Add(user);
-            return UserMapping.ToUserExtensive(user);
+            var addedUser = await _userRepository.Add(UserMapping.ToUserEntity(userDTO));
+            return UserMapping.ToUserExtensive(addedUser);
         }
 
         public async Task UpdateUser(UserExtensive userDTO)
@@ -76,6 +75,16 @@ namespace PharmacyAPI.Services
         public async Task DeleteUser(int id)
         {
             await _userRepository.Delete(id);
+        }
+
+        public async Task<bool> UserExists(string email)
+        {
+            var existingUser = await _userRepository.GetByEmail(email.Trim().ToLower());
+            if (existingUser != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

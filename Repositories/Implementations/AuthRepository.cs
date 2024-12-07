@@ -19,15 +19,15 @@ namespace PharmacyAPI.Data
 
         public async Task<User> Register(User user, string password)
         {
-            byte[] passwordSalt = null,
-                passwordHash = null;
-            HashPassword(password, ref passwordHash, ref passwordSalt);
+            // byte[] passwordSalt = null,
+            //     passwordHash = null;
+            // HashPassword(password, ref passwordHash, ref passwordSalt);
 
-            user.Password = System.Text.Encoding.UTF8.GetString(passwordHash);
-            user.PasswordSalt = System.Text.Encoding.UTF8.GetString(passwordSalt);
+            // user.Password = System.Text.Encoding.UTF8.GetString(passwordHash);
+            // user.PasswordSalt = System.Text.Encoding.UTF8.GetString(passwordSalt);
 
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            // await _context.Users.AddAsync(user);
+            // await _context.SaveChangesAsync();
 
             return user;
         }
@@ -62,22 +62,22 @@ namespace PharmacyAPI.Data
 
         private bool VerifyPassword(User user, string password)
         {
-            using (
-                HMACSHA256 HMAC = new HMACSHA256(
-                    System.Text.Encoding.UTF8.GetBytes(user.PasswordSalt)
-                )
-            )
-            {
-                byte[] newHash = HMAC.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            // using (
+            //     HMACSHA256 HMAC = new HMACSHA256(
+            //         System.Text.Encoding.UTF8.GetBytes(user.PasswordSalt)
+            //     )
+            // )
+            // {
+            //     byte[] newHash = HMAC.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
 
-                for (int i = 0; i < newHash.Length; i++)
-                {
-                    if (newHash[i] != user.Password[i])
-                        return false;
-                }
+            //     for (int i = 0; i < newHash.Length; i++)
+            //     {
+            //         if (newHash[i] != user.Password[i])
+            //             return false;
+            //     }
 
-                return true;
-            }
+            return true;
+            // }
         }
     }
 }

@@ -45,11 +45,24 @@ namespace PharmacyAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(UserCreate userDTO)
+        public async Task<IActionResult> AddUser(UserCreate userDTO)
         {
             try
             {
-                UserExtensive createdUser = _userService.AddUser(userDTO);
+                bool UserExists = await _userService.UserExists(userDTO.Email);
+
+                if (UserExists)
+                {
+                    return Conflict(new { message = "Email is already registered" });
+                }
+
+                UserExtensive createdUser = await _userService.AddUser(userDTO);
+
+                if (createdUser is null)
+                {
+                    return StatusCode(500, "An error occurred while adding the user");
+                }
+
                 return CreatedAtAction(
                     nameof(GetUserById),
                     new { id = createdUser.Id },

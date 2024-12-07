@@ -10,7 +10,8 @@ namespace PharmacyAPI.Repositories.Interfaces
     {
         Task<List<User>> GetAll();
         Task<User> GetById(int id);
-        void Add(User entity);
+        Task<User> GetByEmail(string email);
+        Task<User> Add(User user);
         Task Update(User entity);
         Task Delete(int id);
     }
