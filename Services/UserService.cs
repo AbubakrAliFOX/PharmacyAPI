@@ -27,17 +27,22 @@ namespace PharmacyAPI.Services
             return users.Select(UserMapping.ToUserBasic).ToList();
         }
 
-        public async Task<UserExtensive> GetUserById(int id)
+        public async Task<UserShow> GetUserById(int id)
         {
             var user = await _userRepository.GetById(id);
 
-            return UserMapping.ToUserExtensive(user);
+            if (user is not null)
+            {
+                return UserMapping.ToUserShow(user);
+            }
+
+            return null;
         }
 
-        public async Task<UserExtensive> AddUser(UserCreate userDTO)
+        public async Task<UserBasic> AddUser(UserCreate userDTO)
         {
             var addedUser = await _userRepository.Add(UserMapping.ToUserEntity(userDTO));
-            return UserMapping.ToUserExtensive(addedUser);
+            return UserMapping.ToUserBasic(addedUser);
         }
 
         public async Task UpdateUser(UserExtensive userDTO)

@@ -56,7 +56,7 @@ namespace PharmacyAPI.Controllers
                     return Conflict(new { message = "Email is already registered" });
                 }
 
-                UserExtensive createdUser = await _userService.AddUser(userDTO);
+                UserBasic createdUser = await _userService.AddUser(userDTO);
 
                 if (createdUser is null)
                 {

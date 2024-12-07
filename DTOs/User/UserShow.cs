@@ -6,18 +6,17 @@ using PharmacyAPI.Enums;
 
 namespace PharmacyAPI.DTOs.User
 {
-    public class UserExtensive
+    public class UserShow
     {
         public int Id { get; set; } // Only send the Role ID
         public string UserName { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public string FirstName { get; set; } = null!;
-        public string LastName { get; set; } = null!;
+        public string FullName { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         public string? Address { get; set; } = null!;
-        public Gender Gender { get; set; }
-        public int? BranchId { get; set; }
-        public int? ManagerId { get; set; }
-        public int RoleId { get; set; }
+        public string Gender { get; set; }
+        public ManagerBasic? Manager { get; set; }
+        public RoleBasic Role { get; set; }
+        public BranchBasic Branch { get; set; }
     }
 }

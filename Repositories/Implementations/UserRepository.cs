@@ -29,7 +29,11 @@ namespace PharmacyAPI.Repositories.Implementations
 
         public async Task<User> GetById(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(e => e.Id == id);
+            return await _context
+                .Users.Include(user => user.Branch)
+                .Include(user => user.Role)
+                .Include(user => user.Manager)
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<User> GetByEmail(string email)

@@ -39,6 +39,23 @@ namespace PharmacyAPI.Mapping
             };
         }
 
+        public static UserShow ToUserShow(User user)
+        {
+            return new UserShow
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FullName = user.FirstName + " " + user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
+                Gender = user.Gender.ToString(),
+                Email = user.Email.Trim().ToLower(),
+                Branch = BranchMapping.ToBranchBasic(user.Branch),
+                Role = RoleMapping.ToRoleBasic(user.Role),
+                Manager = ToManagerBasic(user.Manager)
+            };
+        }
+
         // public static UserCreate ToUserCreate(User user)
         // {
         //     return new UserCreate
@@ -112,13 +129,18 @@ namespace PharmacyAPI.Mapping
 
         public static ManagerBasic ToManagerBasic(User user)
         {
-            return new ManagerBasic
+            if (user is not null)
             {
-                Id = user.Id,
-                FullName = user.FirstName + " " + user.LastName,
-                ImageUrl = user.ImageUrl,
-                Branch = new BranchBasic { Id = user.Branch.Id, Name = user.Branch.Name }
-            };
+                return new ManagerBasic
+                {
+                    Id = user.Id,
+                    FullName = user.FirstName + " " + user.LastName,
+                    ImageUrl = user.ImageUrl,
+                    Branch = new BranchBasic { Id = user.Branch.Id, Name = user.Branch.Name }
+                };
+            }
+
+            return null;
         }
     }
 }

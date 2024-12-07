@@ -7,7 +7,11 @@ namespace PharmacyAPI.Mapping
     {
         public static BranchBasic ToBranchBasic(Branch branch)
         {
-            return new BranchBasic { Id = branch.Id, Name = branch.Name };
+            if (branch is not null)
+            {
+                return new BranchBasic { Id = branch.Id, Name = branch.Name };
+            }
+            return null;
         }
     }
 }
