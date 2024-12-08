@@ -33,6 +33,8 @@ namespace PharmacyAPI.Repositories.Implementations
             return await _context
                 .Users.Include(user => user.Role)
                 .Where(user => user.Role.Name == "Manager")
+                .Where(user => user.IsActive == true)
+                .Where(user => user.IsDeleted == false)
                 .ToListAsync<User>();
         }
     }

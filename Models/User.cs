@@ -45,6 +45,8 @@ public partial class User
 
     public bool IsDeleted { get; set; } = false;
 
+    public bool IsActive { get; set; } = true;
+
     public int? ManagerId { get; set; }
     public int? BranchId { get; set; }
     public int RoleId { get; set; }

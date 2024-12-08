@@ -18,6 +18,7 @@ namespace PharmacyAPI.Mapping
                 FullName = user.FirstName + " " + user.LastName,
                 BranchName = user.Branch?.Name,
                 RoleName = user.Role?.Name,
+                IsActive = user.IsActive
             };
         }
 
@@ -45,14 +46,16 @@ namespace PharmacyAPI.Mapping
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                FullName = user.FirstName + " " + user.LastName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
                 Address = user.Address,
-                Gender = user.Gender.ToString(),
+                Gender = user.Gender,
                 Email = user.Email.Trim().ToLower(),
                 Branch = BranchMapping.ToBranchBasic(user.Branch),
                 Role = RoleMapping.ToRoleBasic(user.Role),
-                Manager = ToManagerBasic(user.Manager)
+                Manager = ToManagerBasic(user.Manager),
+                IsActive = user.IsActive
             };
         }
 

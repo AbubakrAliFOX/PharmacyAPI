@@ -22,7 +22,7 @@ namespace PharmacyAPI.Controllers
         public async Task<ActionResult> Seed()
         {
             await _seeder.Seed();
-            await _seeder.BindUsersWithBranches();
+            await _seeder.BindUsersWithBranchesAndManagers();
             return Ok("Seeded!");
         }
     }

@@ -76,8 +76,8 @@ namespace PharmacyAPI.Data.Repositories
                     PhoneNumber = "1112223333",
                     Address = "789 Pine Lane",
                     Gender = Gender.Male,
-                    Role = roles[2],
-                    ManagerId = 2,
+                    Role = roles[1],
+                    ManagerId = null,
                     Branch = null,
                     ImageUrl = "https://img.daisyui.com/images/profile/demo/2@94.webp",
                     UserName = "UserThree",
@@ -92,10 +92,55 @@ namespace PharmacyAPI.Data.Repositories
                     Address = "321 Maple Road",
                     Gender = Gender.Female,
                     Role = roles[2],
-                    ManagerId = 2,
+                    ManagerId = null,
                     Branch = null,
                     ImageUrl = "https://img.daisyui.com/images/profile/demo/2@94.webp",
                     UserName = "UserFour",
+                },
+                new User
+                {
+                    Email = "user5@example.com",
+                    Password = "fasdfasdfadffsd",
+                    FirstName = "Jack",
+                    LastName = "Jones",
+                    PhoneNumber = "4445556666",
+                    Address = "321 Maple Road",
+                    Gender = Gender.Male,
+                    Role = roles[2],
+                    ManagerId = null,
+                    Branch = null,
+                    ImageUrl = "https://img.daisyui.com/images/profile/demo/2@94.webp",
+                    UserName = "UserFour",
+                },
+                new User
+                {
+                    Email = "user6@example.com",
+                    Password = "fasdfasdfadffsd",
+                    FirstName = "Khaled",
+                    LastName = "Ahmad",
+                    PhoneNumber = "4445556666",
+                    Address = "321 Maple Road",
+                    Gender = Gender.Male,
+                    Role = roles[2],
+                    ManagerId = null,
+                    Branch = null,
+                    ImageUrl = "https://img.daisyui.com/images/profile/demo/2@94.webp",
+                    UserName = "UserSix",
+                },
+                new User
+                {
+                    Email = "user7@example.com",
+                    Password = "fasdfasdfadffsd",
+                    FirstName = "Jane",
+                    LastName = "Jones",
+                    PhoneNumber = "4445556666",
+                    Address = "321 Maple Road",
+                    Gender = Gender.Female,
+                    Role = roles[2],
+                    ManagerId = null,
+                    Branch = null,
+                    ImageUrl = "https://img.daisyui.com/images/profile/demo/2@94.webp",
+                    UserName = "UserSeven",
                 }
             };
 
@@ -150,13 +195,23 @@ namespace PharmacyAPI.Data.Repositories
             _context.SaveChanges();
         }
 
-        public async Task BindUsersWithBranches()
+        public async Task BindUsersWithBranchesAndManagers()
         {
             var users = await _context.Users.Include(user => user.Role).ToListAsync();
+            var manager = await _context
+                .Users.Include(user => user.Role)
+                .Where(user => user.Role.Name == "Manager")
+                .FirstOrDefaultAsync();
 
             foreach (var user in users)
             {
                 user.BranchId = 1;
+            }
+
+            foreach (var user in users)
+            {
+                if (user.Role.Name != "Manager")
+                    user.ManagerId = manager.Id;
             }
 
             await _context.SaveChangesAsync();

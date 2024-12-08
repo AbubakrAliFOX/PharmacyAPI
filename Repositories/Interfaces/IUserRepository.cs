@@ -14,5 +14,7 @@ namespace PharmacyAPI.Repositories.Interfaces
         Task<User> Add(User user);
         Task Update(User entity);
         Task Delete(int id);
+        Task<bool> Deactivate(int id);
+        Task<bool> Activate(int id);
     }
 }

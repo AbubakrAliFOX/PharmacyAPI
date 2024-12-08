@@ -8,6 +8,6 @@ namespace PharmacyAPI.Data.Repositories.Interfaces
     public interface ISeederRepository
     {
         Task Seed();
-        Task BindUsersWithBranches();
+        Task BindUsersWithBranchesAndManagers();
     }
 }

@@ -45,7 +45,7 @@ namespace PharmacyAPI.Services
             return UserMapping.ToUserBasic(addedUser);
         }
 
-        public async Task UpdateUser(UserExtensive userDTO)
+        public async Task UpdateUser(UserUpdate userDTO)
         {
             try
             {
@@ -54,24 +54,20 @@ namespace PharmacyAPI.Services
                 if (user == null)
                     throw new KeyNotFoundException($"User with ID {userDTO.Id} not found.");
 
-                // Update fields
                 user.UserName = userDTO.UserName;
-                user.Email = userDTO.Email;
                 user.FirstName = userDTO.FirstName;
                 user.LastName = userDTO.LastName;
                 user.PhoneNumber = userDTO.PhoneNumber;
-                user.Address = userDTO.Address;
+                user.Address = userDTO.Address ?? null;
                 user.Gender = userDTO.Gender;
                 user.BranchId = userDTO.BranchId;
                 user.ManagerId = userDTO.ManagerId;
                 user.RoleId = userDTO.RoleId;
 
-                // Persist changes
                 await _userRepository.Update(user);
             }
             catch (Exception ex)
             {
-                // Log exception
                 Console.WriteLine($"Error updating user: {ex.Message}");
                 throw;
             }
@@ -90,6 +86,16 @@ namespace PharmacyAPI.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<bool> DeactivateUser(int id)
+        {
+            return await _userRepository.Deactivate(id);
+        }
+
+        public async Task<bool> ActivateUser(int id)
+        {
+            return await _userRepository.Activate(id);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace PharmacyAPI.DTOs
         public string ImageUrl { get; set; } = null!;
         public string BranchName { get; set; } = null!;
         public string RoleName { get; set; } = null!;
+        public bool IsActive { get; set; }
     }
 }

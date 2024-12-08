@@ -81,5 +81,41 @@ namespace PharmacyAPI.Repositories.Implementations
                 );
             }
         }
+
+        public async Task<bool> Deactivate(int id)
+        {
+            try
+            {
+                var user = await GetById(id);
+                if (user != null)
+                {
+                    user.IsActive = false;
+                    await _context.SaveChangesAsync();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> Activate(int id)
+        {
+            try
+            {
+                var user = await GetById(id);
+                if (user != null)
+                {
+                    user.IsActive = true;
+                    await _context.SaveChangesAsync();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

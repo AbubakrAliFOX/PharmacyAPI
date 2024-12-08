@@ -79,7 +79,7 @@ namespace PharmacyAPI.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> UpdateUser([FromBody] UserExtensive userDTO)
+        public async Task<IActionResult> UpdateUser([FromBody] UserUpdate userDTO)
         {
             // return Ok(userDTO);
             try
@@ -103,6 +103,52 @@ namespace PharmacyAPI.Controllers
             {
                 await _userService.DeleteUser(id);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new { error = ex.Message }
+                );
+            }
+        }
+
+        [HttpPatch("{id}/deactivate")]
+        public async Task<IActionResult> DeactivateUser(int id)
+        {
+            try
+            {
+                if (await _userService.DeactivateUser(id))
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new { error = ex.Message }
+                );
+            }
+        }
+
+        [HttpPatch("{id}/activate")]
+        public async Task<IActionResult> ActivateUser(int id)
+        {
+            try
+            {
+                if (await _userService.ActivateUser(id))
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    throw new Exception();
+                }
             }
             catch (Exception ex)
             {
